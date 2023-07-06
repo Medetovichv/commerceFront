@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Setter
-@Getter
+@Data
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +32,7 @@ public class Post {
     private List<Comment> comments = new ArrayList<>();
 
     @Column(updatable = false)
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private LocalDateTime createdTime;
 
     @PrePersist

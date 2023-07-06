@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,7 @@ public class Comment {
     private String message;
 
     @Column(updatable = false)
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private LocalDateTime createdTime;
 
     @PrePersist
