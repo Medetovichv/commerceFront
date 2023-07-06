@@ -23,8 +23,17 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String username){
+        User user = userRepository.findUserByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found with username:  " + username));
+        return build(user);
+    }
+
+    public User loadUserById(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with:  " + id));
+
+        return build(user);
     }
     public static User build(User user){
         List<GrantedAuthority> authorities = user.getRoles().stream()
